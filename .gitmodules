@@ -1,0 +1,3 @@
+[submodule "sRDI"]
+	path = sRDI
+	url = https://github.com/monoxgas/sRDI/
